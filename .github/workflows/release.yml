@@ -1,0 +1,111 @@
+name: Build & Release APK
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-release:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.x"
+          channel: "stable"
+          cache: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17"
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Run analysis
+        run: flutter analyze --fatal-infos
+
+      - name: Run tests
+        run: flutter test
+
+      # --- Signing Setup ---
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/liveness-release.jks
+
+      - name: Create key.properties
+        run: |
+          cat > android/key.properties <<EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=liveness-release.jks
+          EOF
+
+      # --- Build ---
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Build app bundle (AAB)
+        run: flutter build appbundle --release
+
+      # --- Version Info ---
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(grep 'version:' pubspec.yaml | head -1 | awk '{print $2}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "build_number=$(echo $VERSION | cut -d'+' -f2)" >> $GITHUB_OUTPUT
+
+      # --- Upload Artifacts ---
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: liveness-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: liveness-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      # --- GitHub Release ---
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: "Liveness Detection v${{ steps.version.outputs.version }}"
+          body: |
+            ## Liveness Detection v${{ steps.version.outputs.version }}
+
+            **Changes:**
+            ${{ github.event.head_commit.message }}
+
+            **Assets:**
+            - `app-release.apk` — Install langsung di device Android
+            - `app-release.aab` — Buat upload ke Play Store
+
+            **Cara install APK:**
+            1. Download `app-release.apk`
+            2. Aktifkan "Install from unknown sources" di device
+            3. Install dan jalankan
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
