@@ -20,7 +20,7 @@ class ChallengeIndicator extends StatelessWidget {
     return Container(
       padding: Responsive.padding(horizontal: 20, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.2),
+        color: Colors.blue.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(Responsive.radius(20)),
         border: Border.all(
           color: Color.lerp(Colors.blue, Colors.green, progress)!,
@@ -76,7 +76,7 @@ class ChallengeIndicator extends StatelessWidget {
           CircularProgressIndicator(
             value: 1.0,
             strokeWidth: 3,
-            valueColor: AlwaysStoppedAnimation(Colors.white.withOpacity(0.2)),
+            valueColor: AlwaysStoppedAnimation(Colors.white.withValues(alpha: 0.2)),
           ),
           // Progress circle
           TweenAnimationBuilder<double>(

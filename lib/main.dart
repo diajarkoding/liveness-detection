@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.blue.withOpacity(0.4),
+                            color: Colors.blue.withValues(alpha: 0.4),
                             blurRadius: 30,
                             spreadRadius: 5,
                           ),
@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: Responsive.sp(15).clamp(13, 18),
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                         height: 1.5,
                       ),
                     ),
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             elevation: 8,
-                            shadowColor: Colors.blue.withOpacity(0.5),
+                            shadowColor: Colors.blue.withValues(alpha: 0.5),
                           ),
                         ),
                       ),
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
           width: Responsive.space(36),
           height: Responsive.space(36),
           decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.2),
+            color: Colors.blue.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(Responsive.radius(8)),
           ),
           child: Icon(

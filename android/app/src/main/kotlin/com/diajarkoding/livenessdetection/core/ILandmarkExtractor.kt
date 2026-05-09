@@ -1,4 +1,4 @@
-package com.example.liveness_detection.core
+package com.diajarkoding.livenessdetection.core
 
 /**
  * Represents 468 face landmarks from MediaPipe FaceLandmarker.

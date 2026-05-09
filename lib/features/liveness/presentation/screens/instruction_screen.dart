@@ -250,31 +250,6 @@ class _InstructionScreenState extends State<InstructionScreen>
                     Column(
                       children: [
                         SizedBox(height: Responsive.space(30)),
-                        // Debug: Show current state
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isReady
-                                ? Colors.green.withOpacity(0.3)
-                                : Colors.orange.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(
-                              Responsive.radius(8),
-                            ),
-                          ),
-                          child: Text(
-                            'State: ${_currentState.runtimeType}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: Responsive.sp(13).clamp(12.0, 16.0),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(height: Responsive.space(16)),
                         // Start Button
                         SizedBox(
                           width: double.infinity,
@@ -302,7 +277,7 @@ class _InstructionScreenState extends State<InstructionScreen>
                                         child: CircularProgressIndicator(
                                           strokeWidth: 2,
                                           valueColor: AlwaysStoppedAnimation(
-                                            Colors.white.withOpacity(0.7),
+                                            Colors.white.withValues(alpha: 0.7),
                                           ),
                                         ),
                                       ),
@@ -355,7 +330,7 @@ class _InstructionScreenState extends State<InstructionScreen>
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.blue.withOpacity(0.3),
+                color: Colors.blue.withValues(alpha: 0.3),
                 blurRadius: 20,
                 spreadRadius: 5,
               ),
@@ -381,7 +356,7 @@ class _InstructionScreenState extends State<InstructionScreen>
           'Pastikan wajah Anda terlihat jelas',
           style: TextStyle(
             fontSize: Responsive.sp(15).clamp(13, 18),
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withValues(alpha: 0.7),
           ),
         ),
       ],
@@ -399,9 +374,9 @@ class _InstructionScreenState extends State<InstructionScreen>
     return Container(
       padding: Responsive.padding(all: 18),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(Responsive.radius(16)),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: Column(
         children: instructions.asMap().entries.map((entry) {
@@ -419,7 +394,7 @@ class _InstructionScreenState extends State<InstructionScreen>
                   width: Responsive.space(38),
                   height: Responsive.space(38),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.2),
+                    color: Colors.blue.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(Responsive.radius(10)),
                   ),
                   child: Icon(

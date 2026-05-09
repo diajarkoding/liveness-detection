@@ -24,15 +24,15 @@ class LivenessPlugin: NSObject, FlutterPlugin {
     // Camera
     private var captureSession: AVCaptureSession?
     private var videoOutput: AVCaptureVideoDataOutput?
-    private let videoQueue = DispatchQueue(label: "com.example.liveness_detection.videoQueue")
+    private let videoQueue = DispatchQueue(label: "com.diajarkoding.livenessdetection.videoQueue")
     
     static func register(with registrar: FlutterPluginRegistrar) {
         let methodChannel = FlutterMethodChannel(
-            name: "com.example.liveness_detection/method",
+            name: "com.diajarkoding.livenessdetection/method",
             binaryMessenger: registrar.messenger()
         )
         let eventChannel = FlutterEventChannel(
-            name: "com.example.liveness_detection/events",
+            name: "com.diajarkoding.livenessdetection/events",
             binaryMessenger: registrar.messenger()
         )
         

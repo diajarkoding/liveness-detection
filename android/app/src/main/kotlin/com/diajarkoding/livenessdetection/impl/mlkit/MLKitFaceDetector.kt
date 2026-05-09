@@ -1,9 +1,9 @@
-package com.example.liveness_detection.impl.mlkit
+package com.diajarkoding.livenessdetection.impl.mlkit
 
 import android.graphics.RectF
 import android.util.Log
 import androidx.camera.core.ImageProxy
-import com.example.liveness_detection.core.*
+import com.diajarkoding.livenessdetection.core.*
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection

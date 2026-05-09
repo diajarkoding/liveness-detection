@@ -101,8 +101,8 @@ class ResultScreen extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isSuccess
-                  ? Colors.green.withOpacity(0.2)
-                  : Colors.red.withOpacity(0.2),
+                  ? Colors.green.withValues(alpha: 0.2)
+                  : Colors.red.withValues(alpha: 0.2),
               border: Border.all(
                 color: isSuccess ? Colors.green : Colors.red,
                 width: 3,
@@ -126,7 +126,7 @@ class ResultScreen extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: Responsive.sp(15).clamp(13.0, 18.0),
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white.withValues(alpha: 0.8),
           height: 1.5,
         ),
       );
@@ -139,7 +139,7 @@ class ResultScreen extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: Responsive.sp(15).clamp(13.0, 18.0),
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               height: 1.5,
             ),
           ),
@@ -151,7 +151,7 @@ class ResultScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: Responsive.sp(13).clamp(12.0, 16.0),
-                  color: Colors.white.withOpacity(0.6),
+                  color: Colors.white.withValues(alpha: 0.6),
                 ),
               ),
             ),
@@ -170,9 +170,9 @@ class ResultScreen extends StatelessWidget {
     return Container(
       padding: Responsive.padding(all: 18),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(Responsive.radius(16)),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,7 +296,7 @@ class ResultScreen extends StatelessWidget {
             child: Text(
               isSuccess ? 'Kembali ke Beranda' : 'Batalkan',
               style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white.withValues(alpha: 0.7),
                 fontSize: Responsive.sp(14).clamp(12.0, 16.0),
               ),
             ),

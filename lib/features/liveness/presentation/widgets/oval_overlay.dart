@@ -84,7 +84,7 @@ class _OvalOverlayPainter extends CustomPainter {
 
     // Draw dark overlay
     final overlayPaint = Paint()
-      ..color = Colors.black.withOpacity(overlayOpacity)
+      ..color = Colors.black.withValues(alpha: overlayOpacity)
       ..style = PaintingStyle.fill;
     canvas.drawPath(overlayPath, overlayPaint);
 
