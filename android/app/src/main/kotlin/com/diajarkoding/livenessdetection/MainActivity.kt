@@ -1,8 +1,8 @@
-package com.example.liveness_detection
+package com.diajarkoding.livenessdetection
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import com.example.liveness_detection.bridge.LivenessPlugin
+import com.diajarkoding.livenessdetection.bridge.LivenessPlugin
 
 class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {

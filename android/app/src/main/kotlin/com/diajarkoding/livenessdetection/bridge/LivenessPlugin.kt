@@ -1,4 +1,4 @@
-package com.example.liveness_detection.bridge
+package com.diajarkoding.livenessdetection.bridge
 
 import android.app.Activity
 import android.content.Context
@@ -7,11 +7,11 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import com.example.liveness_detection.core.*
-import com.example.liveness_detection.impl.AndroidScreenManager
-import com.example.liveness_detection.impl.mediapipe.MediaPipeLandmarker
-import com.example.liveness_detection.impl.mlkit.MLKitFaceDetector
-import com.example.liveness_detection.logic.*
+import com.diajarkoding.livenessdetection.core.*
+import com.diajarkoding.livenessdetection.impl.AndroidScreenManager
+import com.diajarkoding.livenessdetection.impl.mediapipe.MediaPipeLandmarker
+import com.diajarkoding.livenessdetection.impl.mlkit.MLKitFaceDetector
+import com.diajarkoding.livenessdetection.logic.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -33,8 +33,8 @@ class LivenessPlugin : FlutterPlugin, MethodChannel.MethodCallHandler,
     
     companion object {
         private const val TAG = "LivenessPlugin"
-        private const val METHOD_CHANNEL = "com.example.liveness_detection/method"
-        private const val EVENT_CHANNEL = "com.example.liveness_detection/events"
+        private const val METHOD_CHANNEL = "com.diajarkoding.livenessdetection/method"
+        private const val EVENT_CHANNEL = "com.diajarkoding.livenessdetection/events"
     }
     
     private lateinit var methodChannel: MethodChannel
@@ -172,11 +172,16 @@ class LivenessPlugin : FlutterPlugin, MethodChannel.MethodCallHandler,
                 landmarkExtractor = MediaPipeLandmarker(ctx)
                 screenManager = AndroidScreenManager(act)
                 
+                // Run security checks
+                val securityResult = SecurityGuard.performSecurityCheck(ctx)
+                Log.d(TAG, "Security check: safe=${securityResult.isSafe}, score=${securityResult.riskScore}, factors=${securityResult.riskFactors}")
+                
                 // Create pipeline
                 pipeline = LivenessPipeline(
-                    faceDetector!!,
+                    faceDetector!!,                    
                     landmarkExtractor!!,
-                    screenManager!!
+                    screenManager!!,
+                    securityResult
                 )
                 
                 // Initialize pipeline (includes warm-up)

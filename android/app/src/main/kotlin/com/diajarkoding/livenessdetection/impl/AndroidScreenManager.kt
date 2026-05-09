@@ -1,9 +1,9 @@
-package com.example.liveness_detection.impl
+package com.diajarkoding.livenessdetection.impl
 
 import android.app.Activity
 import android.util.Log
 import android.view.WindowManager
-import com.example.liveness_detection.core.IScreenManager
+import com.diajarkoding.livenessdetection.core.IScreenManager
 import java.lang.ref.WeakReference
 
 /**

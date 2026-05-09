@@ -1,12 +1,12 @@
-package com.example.liveness_detection.impl.mediapipe
+package com.diajarkoding.livenessdetection.impl.mediapipe
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.camera.core.ImageProxy
-import com.example.liveness_detection.core.FaceLandmarks
-import com.example.liveness_detection.core.HeadPose
-import com.example.liveness_detection.core.ILandmarkExtractor
+import com.diajarkoding.livenessdetection.core.FaceLandmarks
+import com.diajarkoding.livenessdetection.core.HeadPose
+import com.diajarkoding.livenessdetection.core.ILandmarkExtractor
 import com.google.mediapipe.framework.image.BitmapImageBuilder
 import com.google.mediapipe.tasks.core.BaseOptions
 import com.google.mediapipe.tasks.vision.core.RunningMode

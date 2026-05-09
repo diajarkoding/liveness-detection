@@ -1,9 +1,9 @@
-package com.example.liveness_detection.logic
+package com.diajarkoding.livenessdetection.logic
 
 import android.graphics.RectF
 import android.util.Log
 import androidx.camera.core.ImageProxy
-import com.example.liveness_detection.core.*
+import com.diajarkoding.livenessdetection.core.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -52,7 +52,8 @@ sealed class LivenessState {
 class LivenessPipeline(
     private val faceDetector: IFaceDetector,
     private val landmarkExtractor: ILandmarkExtractor,
-    private val screenManager: IScreenManager
+    private val screenManager: IScreenManager,
+    private val securityGuardResult: SecurityCheckResult? = null
 ) {
     companion object {
         private const val TAG = "LivenessPipeline"
@@ -80,6 +81,15 @@ class LivenessPipeline(
         _state.value = LivenessState.Initializing
         
         try {
+            // Security check: reject if environment is unsafe
+            if (securityGuardResult != null && !securityGuardResult.isSafe) {
+                Log.w(TAG, "Security check failed: ${securityGuardResult.riskFactors}")
+                _state.value = LivenessState.Failed(
+                    "Lingkungan tidak aman: ${securityGuardResult.riskFactors.joinToString()}",
+                    canRetry = false
+                )
+                return
+            }
             // Initialize detectors
             faceDetector.initialize()
             landmarkExtractor.initialize()
@@ -182,10 +192,19 @@ class LivenessPipeline(
                 
                 when (gatingResult) {
                     is GatingResult.Pass -> {
-                        // Gating passed! Start first challenge
-                        val nextChallenge = challengeEngine.getNextChallenge()
-                        if (nextChallenge != null) {
-                            startChallenge(nextChallenge)
+                        // Quick anti-spoof check before starting challenges
+                        val landmarks = landmarkExtractor.extractLandmarks(imageProxy)
+                        if (landmarks != null && antiSpoofGuard.quickSpoofCheck(landmarks)) {
+                            _state.value = LivenessState.Failed(
+                                reason = "Deteksi spoofing. Harap gunakan wajah asli.",
+                                canRetry = true
+                            )
+                        } else {
+                            // Gating passed! Start first challenge
+                            val nextChallenge = challengeEngine.getNextChallenge()
+                            if (nextChallenge != null) {
+                                startChallenge(nextChallenge)
+                            }
                         }
                     }
                     is GatingResult.Fail -> {

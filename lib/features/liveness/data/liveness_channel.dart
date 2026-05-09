@@ -7,10 +7,10 @@ import '../domain/entities/entities.dart';
 /// Service for communicating with native liveness detection pipeline
 class LivenessChannel {
   static const _methodChannel = MethodChannel(
-    'com.example.liveness_detection/method',
+    'com.diajarkoding.livenessdetection/method',
   );
   static const _eventChannel = EventChannel(
-    'com.example.liveness_detection/events',
+    'com.diajarkoding.livenessdetection/events',
   );
 
   StreamSubscription? _eventSubscription;

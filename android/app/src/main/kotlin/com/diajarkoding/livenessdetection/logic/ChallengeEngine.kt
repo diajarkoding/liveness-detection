@@ -1,9 +1,9 @@
-package com.example.liveness_detection.logic
+package com.diajarkoding.livenessdetection.logic
 
 import android.util.Log
-import com.example.liveness_detection.core.FaceLandmarks
-import com.example.liveness_detection.core.HeadPose
-import com.example.liveness_detection.core.ILandmarkExtractor
+import com.diajarkoding.livenessdetection.core.FaceLandmarks
+import com.diajarkoding.livenessdetection.core.HeadPose
+import com.diajarkoding.livenessdetection.core.ILandmarkExtractor
 
 /**
  * Enum representing available liveness challenges.

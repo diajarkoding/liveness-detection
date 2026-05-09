@@ -19,7 +19,7 @@ class StepProgressBar extends StatelessWidget {
     return Container(
       padding: Responsive.padding(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(Responsive.radius(20)),
       ),
       child: Row(
@@ -60,7 +60,7 @@ class StepProgressBar extends StatelessWidget {
       color = Colors.blue;
       size = Responsive.space(12);
     } else {
-      color = Colors.white.withOpacity(0.3);
+      color = Colors.white.withValues(alpha: 0.3);
       size = Responsive.space(8);
     }
 
