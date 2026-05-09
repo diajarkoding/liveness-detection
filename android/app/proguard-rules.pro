@@ -52,3 +52,7 @@
 # --- General ---
 -keepattributes SourceFile,LineNumberTable,Signature,Exceptions,InnerClasses,EnclosingMethod
 -renamesourcefileattribute SourceFile
+
+# --- Play Core (Flutter deferred components) ---
+-dontwarn com.google.android.play.core.**
+-keep class com.google.android.play.core.** { *; }
