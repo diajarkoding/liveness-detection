@@ -26,9 +26,9 @@
 
 # --- Kotlin Coroutines ---
 -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
--keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler
 -keepclassmembers class kotlinx.coroutines.** {
-    volatile **;
+    volatile <fields>;
 }
 
 # --- App Native Code ---
